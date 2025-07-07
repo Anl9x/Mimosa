@@ -1,40 +1,36 @@
-// Đồng hồ đếm ngược
-const countDownDate = new Date("August 20, 2025 10:00:00").getTime();
+// Nhạc nền
+const music = document.getElementById('bg-music');
+const toggleBtn = document.getElementById('music-toggle');
 
-const daysEl = document.getElementById("days");
-const hoursEl = document.getElementById("hours");
-const minutesEl = document.getElementById("minutes");
-const secondsEl = document.getElementById("seconds");
+toggleBtn.addEventListener('click', () => {
+  if (music.paused) {
+    music.play();
+    toggleBtn.innerText = 'Tắt nhạc';
+  } else {
+    music.pause();
+    toggleBtn.innerText = 'Bật nhạc';
+  }
+});
+
+// Đếm ngược
+const countdown = document.getElementById('countdown');
+const targetDate = new Date("March 15, 2026 10:00:00").getTime();
 
 function updateCountdown() {
   const now = new Date().getTime();
-  const distance = countDownDate - now;
+  const diff = targetDate - now;
 
-  if (distance < 0) {
-    document.getElementById("timer").innerHTML = "Hôn lễ đã diễn ra!";
-    clearInterval(interval);
+  if (diff <= 0) {
+    countdown.innerHTML = "Hôn lễ đang diễn ra!";
     return;
   }
 
-  daysEl.innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-  hoursEl.innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  minutesEl.innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  secondsEl.innerText = Math.floor((distance % (1000 * 60)) / 1000);
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  countdown.innerHTML = `Còn ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
 }
 
-const interval = setInterval(updateCountdown, 1000);
-updateCountdown();
-
-// Nhạc nền bật tắt
-const music = document.getElementById("bg-music");
-const btnMusic = document.getElementById("music-toggle");
-
-btnMusic.addEventListener("click", () => {
-  if (music.paused) {
-    music.play();
-    btnMusic.innerText = "Tắt Nhạc nền";
-  } else {
-    music.pause();
-    btnMusic.innerText = "Bật Nhạc nền";
-  }
-});
+setInterval(updateCountdown, 1000);
