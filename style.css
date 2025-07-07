@@ -42,23 +42,19 @@ h1 {
   font-size: 58px;
   margin-bottom: 20px;
   color: #c2185b;
-  white-space: nowrap; /* Giữ nguyên 1 dòng, không cho xuống dòng */
-  overflow-wrap: normal;
-  word-break: normal;
-  text-overflow: ellipsis;
+  word-break: break-word;
 }
 
 /* RESPONSIVE: tự giảm h1 trên điện thoại nhỏ */
 @media (max-width: 480px) {
   h1 {
     font-size: 40px;
-    white-space: normal; /* Cho phép xuống dòng trên màn nhỏ */
   }
 }
 
 h2 {
   font-family: 'Great Vibes', cursive;
-  font-size: 32px; /* Tăng kích thước h2 */
+  font-size: 32px; /* tăng chữ "Trân trọng kính mời" */
   color: #ad1457;
   font-weight: 600;
   margin: 10px 0;
@@ -123,56 +119,6 @@ p, .note, .button, .countdown, .music-button {
   background-color: #ad1457;
 }
 
-/* Calendar styles */
-.calendar {
-  margin-top: 40px;
-  text-align: center;
-  color: #880e4f;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.calendar h3 {
-  margin-bottom: 10px;
-  color: #c2185b;
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.calendar table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 18px; /* Tăng cỡ chữ */
-  table-layout: fixed;
-}
-
-.calendar th, .calendar td {
-  border: 1px solid #e0cfd4;
-  padding: 15px 0;
-  width: 14.28%;
-  text-align: center;
-  vertical-align: middle;
-  transition: background-color 0.3s ease;
-}
-
-.calendar th {
-  background-color: #fce4ec;
-  color: #ad1457;
-  font-weight: 700;
-}
-
-.calendar td:hover {
-  background-color: #fce4ec;
-  cursor: default;
-}
-
-.calendar .highlight {
-  background-color: #f8bbd0;
-  color: #d81b60;
-  font-weight: 700;
-  border: 2px solid #d81b60;
-  border-radius: 50%;
-}
-
 /* Animations */
 @keyframes fadeIn {
   to {
@@ -199,7 +145,6 @@ p, .note, .button, .countdown, .music-button {
   animation: slideInUp 0.8s forwards;
 }
 
-/* Delay animation */
 .delay1 { animation-delay: 0.4s; }
 .delay2 { animation-delay: 0.8s; }
 .delay3 { animation-delay: 1.2s; }
@@ -244,4 +189,37 @@ p, .note, .button, .countdown, .music-button {
     transform: translateY(-100vh) rotate(45deg);
     opacity: 0;
   }
+}
+
+/* Calendar style */
+.calendar {
+  margin-top: 40px;
+  text-align: center;
+  color: #880e4f;
+}
+
+.calendar h3 {
+  margin-bottom: 10px;
+  color: #c2185b;
+  font-size: 22px;
+}
+
+.calendar table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.calendar th, .calendar td {
+  border: 1px solid #e0cfd4;
+  padding: 10px;
+  width: 14.28%;
+}
+
+.calendar .highlight {
+  background-color: #f8bbd0;
+  color: #d81b60;
+  font-weight: bold;
+  border: 2px solid #d81b60;
+  border-radius: 50%;
 }
