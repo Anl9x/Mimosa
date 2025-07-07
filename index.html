@@ -12,14 +12,17 @@
       <img src="images/chure.jpg" alt="Chú rể" class="fade-in" />
       <img src="images/codau.jpg" alt="Cô dâu" class="fade-in" />
     </div>
+
     <h1 class="slide-in">Lê An&nbsp;&amp;&nbsp;Nguyễn Yến</h1>
-<!-- Nút bật/tắt nhạc nằm ngay dưới tên -->
-<div class="music-control slide-in" style="text-align:center; margin-top: 10px; margin-bottom: 20px;">
-  <button id="music-toggle" class="music-button">Bật nhạc nền</button>
-</div>
-<h2 class="slide-in delay1">Trân trọng kính mời</h2>
-<p class="slide-in delay2">Đến dự lễ thành hôn của chúng tôi</p>
-<p class="slide-in delay3">
+
+    <!-- ✅ Nút nhạc dưới tên -->
+    <div class="music-control slide-in" style="text-align:center; margin: 10px 0 20px;">
+      <button id="music-toggle" class="music-button">Bật nhạc nền</button>
+    </div>
+
+    <h2 class="slide-in delay1">Trân trọng kính mời</h2>
+    <p class="slide-in delay2">Đến dự lễ thành hôn của chúng tôi</p>
+    <p class="slide-in delay3">
       Vào lúc <strong>10:00 sáng</strong> Ngày <strong>15 tháng 07 năm 2026</strong>
     </p>
     <p class="slide-in delay4">
@@ -27,23 +30,12 @@
     </p>
     <p class="slide-in delay5 note">Sự hiện diện của bạn là niềm vinh hạnh cho gia đình chúng tôi!</p>
     <a href="https://maps.app.goo.gl/usnEqKZqPmM9PCvt9" target="_blank" class="button slide-in delay6">Chỉ đường</a>
-<div class="calendar slide-in delay8">
-  <h3>Lịch Tháng 12/2026</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>CN</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
-      <tr><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td></tr>
-      <tr><td>14</td><td class="highlight">15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
-      <tr><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td></tr>
-      <tr><td>28</td><td>29</td><td>30</td><td>31</td><td></td><td></td><td></td></tr>
-    </tbody>
-  </table>
-</div>
+
+    <!-- ✅ Lịch tự động -->
+    <div class="calendar slide-in delay8">
+      <h3>Lịch tháng cưới</h3>
+      <div id="calendar-container"></div>
+    </div>
 
     <div class="countdown slide-in delay7">
       <h3>Thời gian còn lại đến ngày cưới:</h3>
@@ -55,25 +47,77 @@
       </div>
     </div>
 
-    <!-- Thẻ audio -->
+    <!-- Nhạc nền -->
     <audio id="bg-music" loop>
       <source src="https://anl9x.github.io/Mimosa/music.mp3" type="audio/mpeg" />
       Trình duyệt không hỗ trợ thẻ audio.
     </audio>
   </div>
 
-  <!-- JS tạo trái tim bay -->
+  <!-- Trái tim bay -->
   <script>
-  setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.bottom = "-20px";
-    document.body.appendChild(heart);
-    setTimeout(() => {
-      heart.remove();
-    }, 4000);
-  }, 500);
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.bottom = "-20px";
+      document.body.appendChild(heart);
+      setTimeout(() => {
+        heart.remove();
+      }, 4000);
+    }, 500);
+  </script>
+
+  <!-- ✅ JS tạo lịch cưới -->
+  <script>
+    function generateWeddingCalendar(weddingDate) {
+      const container = document.getElementById("calendar-container");
+      const date = new Date(weddingDate); // YYYY-MM-DD
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const day = date.getDate();
+
+      const firstDay = new Date(year, month, 1).getDay(); // 0 = CN
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      const tbody = document.createElement("tbody");
+
+      thead.innerHTML = `
+        <tr>
+          <th>CN</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th>
+        </tr>
+      `;
+
+      let currentDay = 1;
+      for (let i = 0; i < 6; i++) {
+        const row = document.createElement("tr");
+        for (let j = 0; j < 7; j++) {
+          const cell = document.createElement("td");
+          if (i === 0 && j < firstDay || currentDay > daysInMonth) {
+            row.appendChild(cell);
+            continue;
+          }
+          cell.textContent = currentDay;
+          if (currentDay === day) {
+            cell.classList.add("highlight");
+          }
+          row.appendChild(cell);
+          currentDay++;
+        }
+        tbody.appendChild(row);
+        if (currentDay > daysInMonth) break;
+      }
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      container.innerHTML = "";
+      container.appendChild(table);
+    }
+
+    // Gọi hàm với ngày cưới
+    generateWeddingCalendar("2026-07-15");
   </script>
 
   <script src="main.js"></script>
