@@ -43,12 +43,12 @@ h1 {
   font-size: 58px;
   margin-bottom: 20px;
   color: #c2185b;
-  opacity: 0;
+  /* bỏ opacity:0 để h1 luôn hiện */
 }
 
 h2, p, .note, .button, .countdown, .music-button {
-  opacity: 0;
   margin: 10px 0;
+  /* bỏ opacity:0 để các phần tử hiện luôn, animation vẫn chạy */
 }
 
 .note {
@@ -99,6 +99,7 @@ h2, p, .note, .button, .countdown, .music-button {
   cursor: pointer;
   transition: background-color 0.3s ease;
   box-shadow: 0 4px 6px rgba(216, 27, 96, 0.3);
+  opacity: 1; /* luôn hiện */
 }
 
 .music-button:hover {
@@ -129,9 +130,10 @@ h2, p, .note, .button, .countdown, .music-button {
 
 .slide-in {
   animation: slideInUp 0.8s forwards;
-  opacity: 0;
+  /* bỏ opacity:0 để phần tử hiện ngay, animation sẽ tạo hiệu ứng mờ dần */
 }
 
+/* Delay animation */
 .delay1 {
   animation-delay: 0.4s;
 }
