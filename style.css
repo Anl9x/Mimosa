@@ -48,7 +48,7 @@ h1 {
 /* RESPONSIVE: tự giảm h1 trên điện thoại nhỏ */
 @media (max-width: 480px) {
   h1 {
-    font-size: 40px;
+    font-size: 30px;
   }
 }
 
@@ -88,17 +88,29 @@ p, .note, .button, .countdown, .music-button {
 }
 
 .countdown {
-  margin-top: 40px;
-  font-size: 20px;
+  margin-top: 30px;
+  font-size: 18px; /* Giảm chữ tiêu đề */
   font-weight: 600;
   color: #880e4f;
 }
 
 #timer span {
   font-weight: 700;
-  font-size: 28px;
-  margin: 0 8px;
+  font-size: 22px; /* Giảm số ngày, giờ... */
+  margin: 0 6px;
   color: #d81b60;
+}
+
+/* Responsive nhỏ hơn trên điện thoại */
+@media (max-width: 480px) {
+  .countdown {
+    font-size: 16px;
+  }
+
+  #timer span {
+    font-size: 18px;
+    margin: 0 4px;
+  }
 }
 
 .music-button {
