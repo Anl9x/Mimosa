@@ -5,7 +5,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #fff0f5, #ffe4e1); /* trắng - hồng nhẹ */
+  background: linear-gradient(135deg, #ffffff, #fff0f8); /* trắng pha hồng nhạt */
   color: #3e2f1c;
   text-align: center;
   overflow-x: hidden;
@@ -89,7 +89,7 @@ h2, p, .note, .button, .countdown, .music-button {
 }
 
 .music-button {
-  margin-top: 30px;
+  margin-top: 0; /* Vì nút nằm trong div riêng trên chữ nên margin-top không cần */
   padding: 12px 28px;
   font-size: 16px;
   border-radius: 30px;
@@ -160,14 +160,14 @@ h2, p, .note, .button, .countdown, .music-button {
   animation-delay: 2.8s;
 }
 
-/* ❤️ Hiệu ứng trái tim (kết hợp với JS trong index.html nếu dùng) */
+/* Hiệu ứng trái tim bay */
 .heart {
   width: 15px;
   height: 15px;
   position: fixed;
   background-color: #ff6b81;
   transform: rotate(45deg);
-  animation: floatUp 4s linear infinite;
+  animation: floatUp 4s linear forwards;
   z-index: 9999;
 }
 .heart::before, .heart::after {
