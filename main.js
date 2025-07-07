@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Đồng hồ đếm ngược
+  // ====== ⏳ ĐỒNG HỒ ĐẾM NGƯỢC ======
   const countDownDate = new Date("August 20, 2025 10:00:00").getTime();
 
   const daysEl = document.getElementById("days");
@@ -26,33 +26,36 @@ document.addEventListener("DOMContentLoaded", () => {
   const interval = setInterval(updateCountdown, 1000);
   updateCountdown();
 
-  // Nhạc nền bật tắt
+  // ====== 🎵 NHẠC NỀN & NÚT BẬT/TẮT ======
   const music = document.getElementById("bg-music");
   const btnMusic = document.getElementById("music-toggle");
 
-  // Khởi tạo trạng thái nút nhạc khi trang load
-  if (music.paused) {
-    btnMusic.innerText = "Bật Nhạc nền";
-  } else {
-    btnMusic.innerText = "Tắt Nhạc nền";
+  function updateMusicButton() {
+    btnMusic.innerText = music.paused ? "Bật Nhạc nền" : "Tắt Nhạc nền";
   }
 
   btnMusic.addEventListener("click", () => {
     if (music.paused) {
       music.play();
-      btnMusic.innerText = "Tắt Nhạc nền";
     } else {
       music.pause();
-      btnMusic.innerText = "Bật Nhạc nền";
     }
+    updateMusicButton();
   });
 
-  // Tự động phát nhạc sau khi user click lần đầu trên trang
-  document.body.addEventListener("click", function playMusicOnce() {
-    if (music.paused) {
-      music.play();
-      btnMusic.innerText = "Tắt Nhạc nền";
-    }
-    document.body.removeEventListener("click", playMusicOnce);
-  }, { once: true });
+  // Tự động phát nhạc khi trang mở (nếu được phép)
+  music.play().then(() => {
+    updateMusicButton();
+  }).catch((err) => {
+    console.warn("Tự động phát nhạc bị chặn:", err);
+    updateMusicButton();
+
+    // Thêm thông báo nhỏ nếu auto-play bị chặn
+    const notice = document.createElement("div");
+    notice.innerText = "🎵 Nhấn nút bên dưới để bật nhạc nền 🎵";
+    notice.style.color = "#d81b60";
+    notice.style.textAlign = "center";
+    notice.style.margin = "10px 0";
+    btnMusic.parentNode.insertBefore(notice, btnMusic);
+  });
 });
