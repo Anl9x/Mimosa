@@ -2,41 +2,44 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thiệp cưới An & Yến</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thiệp Mời Đám Cưới An & Yến</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="hero">
-    <div class="overlay"></div>
-    <div class="content">
-      <h1 class="bride-groom">An & Yến</h1>
-      <p class="invite-text">Trân trọng kính mời bạn đến dự lễ thành hôn của chúng tôi</p>
-      <p class="time-place">
-        Vào lúc <strong>10:00 sáng</strong> <br>
-        Ngày <strong>15 tháng 03 năm 2026</strong><br>
-        Tại: <a href="https://maps.app.goo.gl/usnEqKZqPmM9PCvt9" target="_blank">Xem địa điểm tổ chức</a>
-      </p>
-      <div id="countdown"></div>
-      <button id="music-toggle">Bật / Tắt nhạc</button>
+  <div class="container">
+    <div class="images">
+      <img src="images/bride.jpg" alt="Cô dâu" class="fade-in" />
+      <img src="images/groom.jpg" alt="Chú rể" class="fade-in" />
     </div>
+    <h1 class="slide-in">An & Yến</h1>
+    <h2 class="slide-in delay1">Trân trọng kính mời</h2>
+    <p class="slide-in delay2">Đến dự lễ thành hôn của chúng tôi</p>
+    <p class="slide-in delay3">
+      Vào lúc <strong>10:00 sáng</strong> ngày <strong>20 tháng 08 năm 2025</strong>
+    </p>
+    <p class="slide-in delay4">
+      Tại: <strong>Nhà hàng Hoa Sen, 123 Đường Hạnh Phúc, Quận 1, TP.HCM</strong>
+    </p>
+    <p class="slide-in delay5 note">Sự hiện diện của bạn là niềm vinh hạnh cho gia đình chúng tôi!</p>
+    <a href="https://maps.app.goo.gl/u2Z7VgXqWyKvZZzj6" target="_blank" class="button slide-in delay6">Chỉ đường</a>
+
+    <div class="countdown slide-in delay7">
+      <h3>Thời gian còn lại đến ngày cưới:</h3>
+      <div id="timer">
+        <span id="days">--</span> ngày
+        <span id="hours">--</span> giờ
+        <span id="minutes">--</span> phút
+        <span id="seconds">--</span> giây
+      </div>
+    </div>
+
+    <button id="music-toggle" class="music-button">Bật / Tắt Nhạc nền</button>
+    <audio id="bg-music" loop>
+      <source src="music.mp3" type="audio/mpeg" />
+      Trình duyệt không hỗ trợ thẻ audio.
+    </audio>
   </div>
-
-  <section class="gallery">
-    <div class="photo">
-      <img src="images/groom.jpg" alt="Chú rể An">
-    </div>
-    <div class="photo">
-      <img src="images/bride.jpg" alt="Cô dâu Yến">
-    </div>
-  </section>
-
-  <audio id="bg-music" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
 
   <script src="main.js"></script>
 </body>
