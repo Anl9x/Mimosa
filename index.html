@@ -15,27 +15,23 @@
 
     <h1 class="slide-in">Lê An&nbsp;&amp;&nbsp;Nguyễn Yến</h1>
 
-    <!-- ✅ Nút nhạc dưới tên -->
-    <div class="music-control slide-in" style="text-align:center; margin: 10px 0 20px;">
+    <div class="music-control slide-in" style="text-align:center; margin-top: 10px; margin-bottom: 20px;">
       <button id="music-toggle" class="music-button">Bật nhạc nền</button>
     </div>
 
-    <h2 class="slide-in delay1">Trân trọng kính mời</h2>
-    <p class="slide-in delay2">Đến dự lễ thành hôn của chúng tôi</p>
-    <p class="slide-in delay3">
-      Vào lúc <strong>10:00 sáng</strong> Ngày <strong>15 tháng 07 năm 2026</strong>
+    <h2 class="slide-in delay1" id="invite-text">Trân trọng kính mời</h2>
+    <p class="slide-in delay2" id="invitation-detail">Đến dự lễ thành hôn của chúng tôi</p>
+    <p class="slide-in delay3" id="wedding-datetime">
+      Vào lúc <strong id="wedding-time">10:00 sáng</strong> Ngày <strong id="wedding-date">15/07/2026</strong>
     </p>
-    <p class="slide-in delay4">
+    <p class="slide-in delay4" id="wedding-place">
       Tại: <strong>Mimosa - 130 Trần Hưng Đạo - Núi Đèo - Thủy Nguyên - TP.Hải Phòng</strong>
     </p>
     <p class="slide-in delay5 note">Sự hiện diện của bạn là niềm vinh hạnh cho gia đình chúng tôi!</p>
     <a href="https://maps.app.goo.gl/usnEqKZqPmM9PCvt9" target="_blank" class="button slide-in delay6">Chỉ đường</a>
 
-    <!-- ✅ Lịch tự động -->
-    <div class="calendar slide-in delay8">
-      <h3>Lịch tháng cưới</h3>
-      <div id="calendar-container"></div>
-    </div>
+    <!-- Lịch sẽ được tạo tự động -->
+    <div class="calendar slide-in delay8" id="calendar-container"></div>
 
     <div class="countdown slide-in delay7">
       <h3>Thời gian còn lại đến ngày cưới:</h3>
@@ -47,77 +43,24 @@
       </div>
     </div>
 
-    <!-- Nhạc nền -->
     <audio id="bg-music" loop>
       <source src="https://anl9x.github.io/Mimosa/music.mp3" type="audio/mpeg" />
       Trình duyệt không hỗ trợ thẻ audio.
     </audio>
   </div>
 
-  <!-- Trái tim bay -->
+  <!-- Hiệu ứng trái tim bay -->
   <script>
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.style.left = Math.random() * window.innerWidth + "px";
-      heart.style.bottom = "-20px";
-      document.body.appendChild(heart);
-      setTimeout(() => {
-        heart.remove();
-      }, 4000);
-    }, 500);
-  </script>
-
-  <!-- ✅ JS tạo lịch cưới -->
-  <script>
-    function generateWeddingCalendar(weddingDate) {
-      const container = document.getElementById("calendar-container");
-      const date = new Date(weddingDate); // YYYY-MM-DD
-      const year = date.getFullYear();
-      const month = date.getMonth();
-      const day = date.getDate();
-
-      const firstDay = new Date(year, month, 1).getDay(); // 0 = CN
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-      const table = document.createElement("table");
-      const thead = document.createElement("thead");
-      const tbody = document.createElement("tbody");
-
-      thead.innerHTML = `
-        <tr>
-          <th>CN</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th>
-        </tr>
-      `;
-
-      let currentDay = 1;
-      for (let i = 0; i < 6; i++) {
-        const row = document.createElement("tr");
-        for (let j = 0; j < 7; j++) {
-          const cell = document.createElement("td");
-          if (i === 0 && j < firstDay || currentDay > daysInMonth) {
-            row.appendChild(cell);
-            continue;
-          }
-          cell.textContent = currentDay;
-          if (currentDay === day) {
-            cell.classList.add("highlight");
-          }
-          row.appendChild(cell);
-          currentDay++;
-        }
-        tbody.appendChild(row);
-        if (currentDay > daysInMonth) break;
-      }
-
-      table.appendChild(thead);
-      table.appendChild(tbody);
-      container.innerHTML = "";
-      container.appendChild(table);
-    }
-
-    // Gọi hàm với ngày cưới
-    generateWeddingCalendar("2026-07-15");
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.bottom = "-20px";
+    document.body.appendChild(heart);
+    setTimeout(() => {
+      heart.remove();
+    }, 4000);
+  }, 500);
   </script>
 
   <script src="main.js"></script>
