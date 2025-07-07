@@ -1,6 +1,6 @@
 // --- Cấu hình ngày giờ cưới ---
 // Định dạng "dd/mm/yyyy hh:mm" => bạn sửa ngày giờ cưới ở đây thôi
-const weddingDateTimeStr = "15/07/2026 10:00"; 
+const weddingDateTimeStr = "15/07/2025 09:00"; 
 const [datePart, timePart] = weddingDateTimeStr.split(" ");
 const [day, month, year] = datePart.split("/").map(Number);
 const [hour, minute] = timePart.split(":").map(Number);
