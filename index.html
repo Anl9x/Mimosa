@@ -12,11 +12,13 @@
       <img src="images/chure.jpg" alt="Chú rể" class="fade-in" />
       <img src="images/codau.jpg" alt="Cô dâu" class="fade-in" />
     </div>
-    <!-- ✅ Nút bật/tắt nhạc đặt phía trên tên -->
-    <div class="music-control slide-in" style="text-align:center; margin-bottom: 10px;">
-      <button id="music-toggle" class="music-button">Bật Nhạc nền</button>
-    </div>
-    <h1 class="slide-in">An&nbsp;&amp;&nbsp;&nbsp;Yến</h1>
+
+    <!-- Nút bật/tắt nhạc nằm ngay trên tên -->
+    <div class="music-control slide-in" style="text-align:center; margin-top: 10px; margin-bottom: 20px;">
+  <button id="music-toggle" class="music-button">Bật Nhạc nền</button>
+</div>
+
+    <h1 class="slide-in">An&nbsp;&amp;&nbsp;Yến</h1>
     <h2 class="slide-in delay1">Trân trọng kính mời</h2>
     <p class="slide-in delay2">Đến dự lễ thành hôn của chúng tôi</p>
     <p class="slide-in delay3">
@@ -38,12 +40,26 @@
       </div>
     </div>
 
-    <!-- ✅ Thẻ audio đặt ở cuối -->
+    <!-- Thẻ audio -->
     <audio id="bg-music" loop>
       <source src="https://anl9x.github.io/Mimosa/music.mp3" type="audio/mpeg" />
       Trình duyệt không hỗ trợ thẻ audio.
     </audio>
   </div>
+
+  <!-- JS tạo trái tim bay -->
+  <script>
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.bottom = "-20px";
+    document.body.appendChild(heart);
+    setTimeout(() => {
+      heart.remove();
+    }, 4000);
+  }, 500);
+  </script>
 
   <script src="main.js"></script>
 </body>
