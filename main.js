@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Thêm thông báo nhỏ nếu auto-play bị chặn
     const notice = document.createElement("div");
-    notice.innerText = "🎵 Nhấn nút bên dưới để bật nhạc nền 🎵";
+    notice.innerText = "🎵 Bật nhạc nền 🎵";
     notice.style.color = "#d81b60";
     notice.style.textAlign = "center";
     notice.style.margin = "10px 0";
