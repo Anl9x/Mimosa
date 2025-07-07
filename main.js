@@ -38,3 +38,12 @@ btnMusic.addEventListener("click", () => {
     btnMusic.innerText = "Bật Nhạc nền";
   }
 });
+
+// Tự động phát nhạc sau khi user click lần đầu trên trang (do trình duyệt chặn auto-play)
+document.body.addEventListener("click", function playMusicOnce() {
+  if (music.paused) {
+    music.play();
+    btnMusic.innerText = "Tắt Nhạc nền";
+  }
+  document.body.removeEventListener("click", playMusicOnce);
+}, { once: true });
