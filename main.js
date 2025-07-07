@@ -1,24 +1,26 @@
-// === Ngày cưới định dạng Việt Nam: "15/07/2026" ===
-const weddingVNDate = "15/07/2026";
+// --- Cấu hình ngày giờ cưới ---
+// Định dạng "dd/mm/yyyy hh:mm" => bạn sửa ngày giờ cưới ở đây thôi
+const weddingDateTimeStr = "15/07/2026 10:00"; 
+const [datePart, timePart] = weddingDateTimeStr.split(" ");
+const [day, month, year] = datePart.split("/").map(Number);
+const [hour, minute] = timePart.split(":").map(Number);
 
-// Hàm chuyển đổi chuỗi "dd/mm/yyyy" thành đối tượng Date chuẩn JS
-function parseVNDate(dateStr) {
-  const [day, month, year] = dateStr.split("/").map(Number);
-  return new Date(year, month - 1, day);
-}
+const weddingDateTime = new Date(year, month - 1, day, hour, minute, 0);
 
-const weddingDate = parseVNDate(weddingVNDate);
-const countDownDate = weddingDate.getTime();
+// Cập nhật phần text ngày giờ cưới phía trên
+document.getElementById("wedding-time").textContent = `${hour}:${minute.toString().padStart(2,'0')} sáng`;
+document.getElementById("wedding-date").textContent = `${day.toString().padStart(2,'0')}/${month.toString().padStart(2,'0')}/${year}`;
 
-// DOM elements cho đồng hồ đếm ngược
+// Đồng hồ đếm ngược
+const countDownDate = weddingDateTime.getTime();
+
 const daysEl = document.getElementById("days");
 const hoursEl = document.getElementById("hours");
 const minutesEl = document.getElementById("minutes");
 const secondsEl = document.getElementById("seconds");
 
-// Cập nhật đồng hồ đếm ngược
 function updateCountdown() {
-  const now = Date.now();
+  const now = new Date().getTime();
   const distance = countDownDate - now;
 
   if (distance < 0) {
@@ -36,7 +38,81 @@ function updateCountdown() {
 const interval = setInterval(updateCountdown, 1000);
 updateCountdown();
 
-// Nhạc nền bật tắt
+// --- Tự động tạo lịch và highlight ngày cưới ---
+function createCalendar(year, month, highlightDay) {
+  const calendarContainer = document.getElementById("calendar-container");
+  calendarContainer.innerHTML = ""; // Xóa lịch cũ
+
+  const monthNames = [
+    "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
+    "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
+  ];
+
+  // Tạo tiêu đề tháng
+  const heading = document.createElement("h3");
+  heading.textContent = `${monthNames[month]} ${year}`;
+  calendarContainer.appendChild(heading);
+
+  // Tạo bảng lịch
+  const table = document.createElement("table");
+
+  // Tạo phần đầu bảng (thứ trong tuần)
+  const thead = document.createElement("thead");
+  const headRow = document.createElement("tr");
+  const weekDays = ["CN","T2","T3","T4","T5","T6","T7"];
+  weekDays.forEach(dayName => {
+    const th = document.createElement("th");
+    th.textContent = dayName;
+    headRow.appendChild(th);
+  });
+  thead.appendChild(headRow);
+  table.appendChild(thead);
+
+  // Tạo phần thân bảng (ngày)
+  const tbody = document.createElement("tbody");
+
+  // Ngày đầu tháng là ngày trong tuần thứ mấy (0=CN,...)
+  const firstDay = new Date(year, month, 1).getDay();
+
+  // Số ngày trong tháng
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  let date = 1;
+
+  for(let i=0; i<6; i++) { // tối đa 6 hàng tuần
+    const tr = document.createElement("tr");
+
+    for(let j=0; j<7; j++) {
+      const td = document.createElement("td");
+
+      if(i === 0 && j < firstDay) {
+        td.textContent = "";
+      } else if(date > daysInMonth) {
+        td.textContent = "";
+      } else {
+        td.textContent = date;
+        if(date === highlightDay) {
+          td.classList.add("highlight");
+        }
+        date++;
+      }
+
+      tr.appendChild(td);
+    }
+
+    tbody.appendChild(tr);
+
+    if(date > daysInMonth) break;
+  }
+
+  table.appendChild(tbody);
+  calendarContainer.appendChild(table);
+}
+
+// Tạo lịch tháng năm dựa trên ngày cưới
+createCalendar(year, month - 1, day);
+
+// --- Nhạc nền bật tắt ---
 const music = document.getElementById("bg-music");
 const btnMusic = document.getElementById("music-toggle");
 
@@ -50,80 +126,10 @@ btnMusic.addEventListener("click", () => {
   }
 });
 
-// Tự động phát nhạc khi tải trang (nếu trình duyệt cho phép)
 window.addEventListener("load", () => {
   music.play().then(() => {
     btnMusic.innerText = "Tắt Nhạc nền";
   }).catch(() => {
-    // Nếu trình duyệt chặn auto-play, user sẽ phải bấm nút
+    // Trình duyệt chặn auto-play
   });
 });
-
-// Hàm tạo bảng lịch tháng có đánh dấu ngày cưới
-function generateWeddingCalendar(date) {
-  const calendarDiv = document.querySelector(".calendar");
-  if (!calendarDiv) return;
-
-  const year = date.getFullYear();
-  const month = date.getMonth(); // 0-based
-  const day = date.getDate();
-
-  // Tiêu đề tháng năm
-  const monthNames = ["01","02","03","04","05","06","07","08","09","10","11","12"];
-  calendarDiv.querySelector("h3").innerText = `Lịch Tháng ${monthNames[month]}/${year}`;
-
-  // Tính ngày đầu tháng là thứ mấy (0: CN, 1: T2,...)
-  const firstDay = new Date(year, month, 1).getDay();
-
-  // Số ngày trong tháng
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-  // Tạo mảng các ngày (với ô trống đầu nếu firstDay > 0)
-  const weeks = [];
-  let week = [];
-
-  // Thêm ô trống đầu tiên cho các ngày trước ngày 1 tháng
-  for (let i = 0; i < firstDay; i++) {
-    week.push("");
-  }
-
-  for (let dateNum = 1; dateNum <= daysInMonth; dateNum++) {
-    week.push(dateNum);
-    if (week.length === 7) {
-      weeks.push(week);
-      week = [];
-    }
-  }
-
-  // Thêm các ô trống cuối cùng nếu cần
-  if (week.length > 0) {
-    while (week.length < 7) {
-      week.push("");
-    }
-    weeks.push(week);
-  }
-
-  // Tạo tbody bảng
-  const tbody = calendarDiv.querySelector("tbody");
-  tbody.innerHTML = ""; // xóa trước
-
-  weeks.forEach(weekArr => {
-    const tr = document.createElement("tr");
-    weekArr.forEach(dateNum => {
-      const td = document.createElement("td");
-      if (dateNum === "") {
-        td.textContent = "";
-      } else {
-        td.textContent = dateNum;
-        if (dateNum === day) {
-          td.classList.add("highlight");
-        }
-      }
-      tr.appendChild(td);
-    });
-    tbody.appendChild(tr);
-  });
-}
-
-// Gọi hàm tạo lịch với ngày cưới đã định nghĩa
-generateWeddingCalendar(weddingDate);
